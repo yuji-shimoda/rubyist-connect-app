@@ -19,7 +19,7 @@ export const useAuth = () => {
 
 async function getUsers(accessToken) {
   try {
-    const res = await fetch('http://localhost:8000/users', {
+    const res = await fetch(process.env.REACT_APP_API_ENDPOINT + '/users', {
       method: 'GET',
       mode: 'cors',
       headers: {
