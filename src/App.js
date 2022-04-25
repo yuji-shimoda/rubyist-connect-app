@@ -10,23 +10,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { app } from "./firebase";
 import { getAuth, signInWithRedirect, GithubAuthProvider } from "firebase/auth";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Rubyist Connect
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const theme = createTheme();
 
@@ -100,7 +83,6 @@ export default function SignInSide() {
               >
                 Sign In with GitHub
               </Button>
-              <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>
