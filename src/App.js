@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Top from './components/Top';
+import Users from './components/Users';
 import NotFound from './components/NotFound';
 import { ProvideAuth } from './auth.js';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -17,6 +18,14 @@ export default function App() {
           <Router>
             <Routes>
               <Route element={<Top />} path="/" />
+              <Route
+                element={
+                  <RequireAuth>
+                    <Users />
+                  </RequireAuth>
+                }
+                path="/nnect"
+              />
               <Route path="/*" element={<NotFound />} />
             </Routes>
           </Router>
