@@ -17,11 +17,19 @@ import {
   MenuItem,
 } from '@mui/material';
 import { useAuth } from '../auth';
+import { usePagination } from './Pagination';
 
 export default function Users() {
   const { user, rubyists, logout } = useAuth();
+  const [page, setPage] = React.useState(1);
+  const DISPLAY_COUNT = 8;
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const count = Math.ceil(rubyists.length / DISPLAY_COUNT);
+  const _DATA = usePagination(rubyists, DISPLAY_COUNT);
+  const handleChange = (e, p) => {
+    setPage(p);
+    _DATA.jump(p);
+  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -70,20 +78,21 @@ export default function Users() {
       <Container sx={{ height: '100vh', mt: '50px', mb: '50px' }}>
         <Grid container spacing={4} alignItems="center" justifyContent="center" sx={{ mb: '10px' }}>
           {rubyists
-            ? rubyists.map((rubyist) => (
+            ? _DATA.currentData().map((rubyist) => (
                 <Grid item key={rubyist.id} xs={8} sm={5} md={3} lg={3} xl={3}>
                   <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                     <CardMedia
                       component="img"
-                      height="140"
+                      height="200"
                       image={rubyist.image}
-                      alt={rubyist.name}
+                      alt={rubyist.nickname}
+                      sx={{ mt: '30' }}
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Typography gutterBottom variant="h5" component="h2">
-                        {rubyist.name}
+                        {rubyist.nickname}
                       </Typography>
-                      <Typography>{rubyist.introduction.slice(0, 16) + ' ...'}</Typography>
+                      <Typography>{rubyist.introduction.slice(0, 10) + ' ...'}</Typography>
                     </CardContent>
                   </Card>
                 </Grid>
@@ -91,7 +100,13 @@ export default function Users() {
             : ''}
         </Grid>
         <Grid container justifyContent="center" sx={{ mt: '30px', mb: '30px' }}>
-          <Pagination count={10} color="error" sx={{ mb: '30px' }} />
+          <Pagination
+            count={count}
+            page={page}
+            onChange={handleChange}
+            color="error"
+            sx={{ mb: '30px' }}
+          />
         </Grid>
       </Container>
     </>

@@ -21,7 +21,6 @@ async function getUsers(accessToken) {
   try {
     const res = await fetch(process.env.REACT_APP_API_ENDPOINT + '/users', {
       method: 'GET',
-      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
@@ -56,7 +55,7 @@ function useProvideAuth() {
       }
     };
     f();
-  }, [accessToken, user]);
+  }, [accessToken]);
 
   async function login() {
     const githubAuth = getAuth(app);
