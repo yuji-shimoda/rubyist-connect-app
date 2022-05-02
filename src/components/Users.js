@@ -92,7 +92,6 @@ export default function Users() {
                       <Typography gutterBottom variant="h5" component="h2">
                         {rubyist.nickname}
                       </Typography>
-                      <Typography>{rubyist.introduction.slice(0, 10) + ' ...'}</Typography>
                     </CardContent>
                   </Card>
                 </Grid>
